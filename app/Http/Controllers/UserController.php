@@ -6,8 +6,13 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function register()
+    public function register(Request $request)
     {
-        return "Hello from UserController";
+        $formFields = $request->validate([
+            'name' => 'required|min:3|max:10',
+            'email' => 'required|email',
+            'password' => 'required|min:8|max:200'
+        ]);
+        return 'Hello from UserController :)';
     }
 }
