@@ -38,11 +38,11 @@
                 <input
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="title" type="text" placeholder="Title">
-                    <div class="p-2">
-                        @error('title')
-                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+                <div class="p-2">
+                    @error('title')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
 
                 <div class="mb-4 mt-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
@@ -52,11 +52,11 @@
                 <textarea class="block text-gray-700 text-sm font-bold m-2 p-2" name="body" id="body"
                     placeholder="Post something! :)">
                 </textarea>
-                    <div class="p-2">
-                        @error('body')
-                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+                <div class="p-2">
+                    @error('body')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
 
                 <div class="flex items-center justify-between">
                     <button
@@ -72,13 +72,26 @@
         <div class="w-full max-w-lg p-8 m-4">
             <h2>Posts</h2>
             @foreach ($posts as $post)
-
-            <div class="border border-solid p-8 m-4 border-amber-600">
+                <div class="border border-solid p-8 m-4 border-amber-600">
                     <h3 class="pb-2">{{ $post->title }}</h3>
                     {{ $post->body }}
                     <p class="mt-2">Author: {{ $post->user->name }}</p>
-                </div>
+                    <p class="mt-4">
+                        <a href="/edit-post/{{ $post->id }}"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            >Edit</a>
+                    <form class="mt-2" action="/delete-post/{{ $post->id }}" method="POST">
+                        @csrf
+                        @method('DELETE')
 
+                        <button
+                            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            type="submit">
+                            Delete
+                        </button>
+                    </form>
+                    </p>
+                </div>
             @endforeach
         </div>
     @else
@@ -182,6 +195,8 @@
             </form>
         </div>
     @endauth
+
+
 </body>
 
 </html>
