@@ -25,7 +25,7 @@
             </div>
         </form>
 
-        <div class="w-full max-w-xs px-8 pt-6 pb-8 mb-4">
+        <div class="w-full max-w-lg px-8 pt-6 pb-8 mb-4">
             <h2 class="mt-2">Create a New Post</h2>
             <form action="/create-post" method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 @csrf
@@ -67,6 +67,19 @@
                 </div>
 
             </form>
+        </div>
+
+        <div class="w-full max-w-lg p-8 m-4">
+            <h2>Posts</h2>
+            @foreach ($posts as $post)
+
+            <div class="border border-solid p-8 m-4 border-amber-600">
+                    <h3 class="pb-2">{{ $post->title }}</h3>
+                    {{ $post->body }}
+                    <p class="mt-2">Author: {{ $post->user->name }}</p>
+                </div>
+
+            @endforeach
         </div>
     @else
         <div class="w-full max-w-xs">

@@ -6,7 +6,12 @@ use App\Http\Controllers\UserController;
 
 
 Route::get('/', function () {
-    return view('home');
+    $posts = [];
+    if (auth()->check()) {
+        $posts = auth()->user()->posts()->latest()->get();
+    }
+
+    return view('home', ['posts' => $posts]);
 });
 
 Route::post('/register', [UserController::class, 'register']);
