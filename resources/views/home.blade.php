@@ -74,9 +74,12 @@
         <div class="w-full max-w-lg p-8 m-4">
             <h2>Posts</h2>
             @foreach ($posts as $post)
-                <div class="border border-solid p-8 m-4 border-amber-600">
-                    <h3 class="pb-2">{{ $post->title }}</h3>
-                    {{ $post->body }}
+                <div class="border rounded-xl p-8 m-4 border-amber-600">
+                    <h3 class="pb-2 font-bold text-xl first-letter:text-5xl text-fuchsia-600">{{ $post->title }}</h3>
+
+                    <div class="bg-fuchsia-300 p-4 rounded-xl text-lg first-letter:text-5xl first-letter:text-blue-600 text-blue-600">
+                        {{ $post->body }}
+                    </div>
                     <p class="mt-2">Author: {{ $post->user->name }}</p>
 
                     @if (auth()->user()->id === $post->user->id)
@@ -96,25 +99,26 @@
                         </p>
                     @else
                         <!-- Blade template to add a new comment -->
+                        <h2>Comments</h2>
                         <form method="post" action="{{ route('createCommemt', $post->id) }}">
                             @csrf
                             <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                             <input type="hidden" name="post_id" value="{{ $post->id }}">
-                            <textarea name="body" rows="3" required></textarea>
-                            <button type="submit">Add Comment</button>
+                            <textarea name="body" rows="3" required class="p-4 border border-black rounded-2xl"></textarea>
+                            <button type="submit" class="border border-black bg-lime-400 p-2 rounded-2xl">Add Comment</button>
                         </form>
                     @endif
                     <!-- Blade template to display comments for a post -->
-                    <div>
-                        <h2>Comments</h2>
+                    <div class=" ">
+
                         @foreach ($post->comments as $comment)
                             <p>{{ $comment->user->name }}: {{ $comment->body }}</p>
                             @if (auth()->user()->id === $comment->user->id)
 
-                                <form class="inline" action="{{ route('deleteComment', $comment->id) }}" method="post">
+                                <form class="" action="{{ route('deleteComment', $comment->id) }}" method="post">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="ml-4 text-red-500">Delete</button>
+                                    <button type="submit" class="border border-black bg-red-400 p-2 rounded-2xl">Delete</button>
                                 </form>
 
                             @endif
