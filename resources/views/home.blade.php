@@ -13,7 +13,7 @@
 
 <body>
     @auth
-        <p class="m-4">Congrats you are logged in.</p>
+        <p class="m-4">Congrats {{ auth()->user()->name }} you are logged in.</p>
         <form action="/logout" method="POST" class="m-4">
             @csrf
             <div class="flex items-center justify-between">
@@ -76,21 +76,26 @@
                     <h3 class="pb-2">{{ $post->title }}</h3>
                     {{ $post->body }}
                     <p class="mt-2">Author: {{ $post->user->name }}</p>
-                    <p class="mt-4">
-                        <a href="/edit-post/{{ $post->id }}"
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            >Edit</a>
-                    <form class="mt-2" action="/delete-post/{{ $post->id }}" method="POST">
-                        @csrf
-                        @method('DELETE')
 
-                        <button
-                            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            type="submit">
-                            Delete
-                        </button>
-                    </form>
-                    </p>
+                    @if (auth()->user()->id === $post->user->id)
+
+                        <p class="mt-4">
+                            <a href="/edit-post/{{ $post->id }}"
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                >Edit</a>
+                        <form class="mt-2" action="/delete-post/{{ $post->id }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+
+                            <button
+                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                type="submit">
+                                Delete
+                            </button>
+                        </form>
+                        </p>
+                    @endif
+
                 </div>
             @endforeach
         </div>

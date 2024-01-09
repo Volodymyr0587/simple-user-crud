@@ -23,6 +23,16 @@ class PostController extends Controller
         return redirect('/');
     }
 
+    public function showAllPosts()
+    {
+        // if (auth()->check()) {
+        //     $posts = auth()->user()->posts()->latest()->get();
+        // }
+        $posts = Post::all();
+
+        return view('home', ['posts' => $posts]);
+    }
+
     public function showEditScreen(Post $post)
     {
         if (auth()->user()->id === $post->user_id) {
