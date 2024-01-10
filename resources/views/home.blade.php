@@ -85,21 +85,21 @@
                     @if (auth()->user()->id === $post->user->id)
                         <p class="mt-4">
                             <a href="/edit-post/{{ $post->id }}"
-                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit</a>
+                                class="border border-black bg-blue-600 p-2 rounded-2xl">Edit post</a>
                         <form class="mt-2" action="/delete-post/{{ $post->id }}" method="POST">
                             @csrf
                             @method('DELETE')
 
                             <button
-                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                class="border border-black bg-red-600 p-2 rounded-2xl"
                                 type="submit">
-                                Delete
+                                Delete post
                             </button>
                         </form>
                         </p>
                     @else
                         <!-- Blade template to add a new comment -->
-                        <h2>Comments</h2>
+
                         <form method="post" action="{{ route('createCommemt', $post->id) }}">
                             @csrf
                             <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
@@ -110,15 +110,15 @@
                     @endif
                     <!-- Blade template to display comments for a post -->
                     <div class=" ">
-
+                        <h2 class="pt-4 pb-4 text-xl font-bold">Comments</h2>
                         @foreach ($post->comments as $comment)
-                            <p>{{ $comment->user->name }}: {{ $comment->body }}</p>
+                            <p class="pl-4"><span class="text-green-500 font-semibold">{{ $comment->user->name }}:</span> {{ $comment->body }}</p>
                             @if (auth()->user()->id === $comment->user->id)
 
-                                <form class="" action="{{ route('deleteComment', $comment->id) }}" method="post">
+                                <form class="pl-4" action="{{ route('deleteComment', $comment->id) }}" method="post">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="border border-black bg-red-400 p-2 rounded-2xl">Delete</button>
+                                    <button type="submit" class="border border-black bg-red-400 p-2 rounded-2xl">Delete comment</button>
                                 </form>
 
                             @endif
