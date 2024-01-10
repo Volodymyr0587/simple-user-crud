@@ -6,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>
 
 <body>
+
+    @include('navbar')
     @auth
         <p class="m-4">Congrats {{ auth()->user()->name }} you are logged in.</p>
         <form action="/logout" method="POST" class="m-4">
@@ -27,7 +29,7 @@
 
         <div class="w-full max-w-lg px-8 pt-6 pb-8 mb-4">
             <h2 class="mt-2">Create a New Post</h2>
-            <form action="/create-post" method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            {{-- <form action="/create-post" method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 @csrf
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
@@ -67,9 +69,9 @@
                     </button>
                 </div>
 
-            </form>
+            </form> --}}
 
-
+            @include('modal')
         </div>
 
         <div class="w-full max-w-lg p-8 m-4">
@@ -231,7 +233,7 @@
         </div>
     @endauth
 
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 </body>
 
 </html>
