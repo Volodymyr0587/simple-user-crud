@@ -28,7 +28,7 @@ class PostController extends Controller
         // if (auth()->check()) {
         //     $posts = auth()->user()->posts()->latest()->get();
         // }
-        $posts = Post::all();
+        $posts = Post::orderBy('created_at', 'desc')->get();
 
         return view('home', ['posts' => $posts]);
     }

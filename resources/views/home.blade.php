@@ -49,9 +49,10 @@
                         Body
                     </label>
                 </div>
-                <textarea class="block text-gray-700 text-sm font-bold m-2 p-2" name="body" id="body"
-                    placeholder="Post something! :)">
-                </textarea>
+                <textarea
+                class="block text-gray-700 text-sm font-bold m-2 p-2"
+                name="body" id="body"
+                placeholder="Post something! :)"></textarea>
                 <div class="p-2">
                     @error('body')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
